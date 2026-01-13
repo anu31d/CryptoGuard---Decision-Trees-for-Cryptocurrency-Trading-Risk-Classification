@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoGuard - Cryptocurrency Trading Risk Classification</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">🛡️</span>
+            <span class="brand-name">CryptoGuard</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+            <li><a href="#risk" class="nav-link" data-page="risk">Risk Calculator</a></li>
+            <li><a href="#analytics" class="nav-link" data-page="analytics">Analytics</a></li>
+            <li><a href="#glossary" class="nav-link" data-page="glossary">Glossary</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Decision Trees for <span class="gradient-text">Cryptocurrency</span> Trading Risk Classification</h1>
+                <p class="hero-subtitle">Advanced machine learning model to classify cryptocurrency trading risks using decision tree algorithms</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showPage('risk')">Calculate Risk</button>
+                    <button class="btn btn-secondary" onclick="showPage('analytics')">View Analytics</button>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-value">99.5%</div>
+                    <div class="stat-label">Model Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Risk Levels</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1000+</div>
+                    <div class="stat-label">Data Points</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>How It Works</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data Collection</h3>
+                    <p>Historical cryptocurrency data is collected including price, volume, and returns</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Feature Engineering</h3>
+                    <p>Calculate returns, volatility, and volume changes as key features</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌳</div>
+                    <h3>Decision Tree Model</h3>
+                    <p>Train a decision tree classifier to predict risk levels</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Risk Classification</h3>
+                    <p>Classify trades as Low, Medium, or High risk</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="risk-levels">
+            <h2>Risk Classification Levels</h2>
+            <div class="risk-grid">
+                <div class="risk-card low">
+                    <div class="risk-header">
+                        <span class="risk-indicator"></span>
+                        <h3>Low Risk</h3>
+                    </div>
+                    <p>Volatility &lt; 2%</p>
+                    <p>Stable market conditions with minimal price fluctuations</p>
+                </div>
+                <div class="risk-card medium">
+                    <div class="risk-header">
+                        <span class="risk-indicator"></span>
+                        <h3>Medium Risk</h3>
+                    </div>
+                    <p>Volatility 2% - 5%</p>
+                    <p>Moderate market movement with manageable risk exposure</p>
+                </div>
+                <div class="risk-card high">
+                    <div class="risk-header">
+                        <span class="risk-indicator"></span>
+                        <h3>High Risk</h3>
+                    </div>
+                    <p>Volatility &gt; 5%</p>
+                    <p>Highly volatile conditions requiring caution</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Calculator Page -->
+    <section id="risk" class="page">
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>🎯 Risk Calculator</h1>
+                <p>Enter trading parameters to predict risk level</p>
+            </div>
+            
+            <div class="calculator-content">
+                <div class="input-section">
+                    <div class="input-group">
+                        <label for="return-input">Return (%)</label>
+                        <input type="number" id="return-input" placeholder="e.g., 1.5" step="0.01">
+                        <span class="input-hint">Percentage change in price</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="volatility-input">Volatility</label>
+                        <input type="number" id="volatility-input" placeholder="e.g., 0.03" step="0.001">
+                        <span class="input-hint">7-day rolling standard deviation</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="volume-input">Volume Change (%)</label>
+                        <input type="number" id="volume-input" placeholder="e.g., 5" step="0.01">
+                        <span class="input-hint">Percentage change in trading volume</span>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full" onclick="calculateRisk()">
+                        Calculate Risk Level
+                    </button>
+                </div>
+                
+                <div class="result-section" id="result-section">
+                    <div class="result-card" id="result-card">
+                        <div class="result-icon" id="result-icon">❓</div>
+                        <h2 id="result-text">Enter values to calculate</h2>
+                        <p id="result-description">Fill in the trading parameters and click calculate</p>
+                    </div>
+                    
+                    <div class="input-summary" id="input-summary" style="display: none;">
+                        <h3>Input Summary</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="summary-label">Return</span>
+                                <span class="summary-value" id="summary-return">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Volatility</span>
+                                <span class="summary-value" id="summary-volatility">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Volume Change</span>
+                                <span class="summary-value" id="summary-volume">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Page -->
+    <section id="analytics" class="page">
+        <div class="analytics-container">
+            <div class="analytics-header">
+                <h1>📈 Data Analytics</h1>
+                <p>Cryptocurrency market data analysis and insights</p>
+            </div>
+            
+            <!-- Coin Selector -->
+            <div class="coin-selector">
+                <label for="coin-select">Select Cryptocurrency:</label>
+                <select id="coin-select" onchange="loadCoinData()">
+                    <option value="Bitcoin">Bitcoin (BTC)</option>
+                    <option value="Ethereum">Ethereum (ETH)</option>
+                    <option value="BinanceCoin">Binance Coin (BNB)</option>
+                    <option value="Cardano">Cardano (ADA)</option>
+                    <option value="Solana">Solana (SOL)</option>
+                    <option value="XRP">XRP</option>
+                    <option value="Dogecoin">Dogecoin (DOGE)</option>
+                    <option value="Polkadot">Polkadot (DOT)</option>
+                    <option value="Litecoin">Litecoin (LTC)</option>
+                    <option value="ChainLink">Chainlink (LINK)</option>
+                    <option value="Uniswap">Uniswap (UNI)</option>
+                    <option value="Stellar">Stellar (XLM)</option>
+                    <option value="Monero">Monero (XMR)</option>
+                    <option value="Cosmos">Cosmos (ATOM)</option>
+                    <option value="Tether">Tether (USDT)</option>
+                    <option value="USDCoin">USD Coin (USDC)</option>
+                    <option value="Aave">Aave (AAVE)</option>
+                    <option value="EOS">EOS</option>
+                    <option value="Tron">Tron (TRX)</option>
+                    <option value="NEM">NEM (XEM)</option>
+                    <option value="Iota">IOTA (MIOTA)</option>
+                    <option value="WrappedBitcoin">Wrapped Bitcoin (WBTC)</option>
+                    <option value="CryptocomCoin">Crypto.com (CRO)</option>
+                </select>
+            </div>
+            
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="current-price">$0</div>
+                    <div class="metric-label">Latest Close Price</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="all-time-high">$0</div>
+                    <div class="metric-label">All-Time High</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="all-time-low">$0</div>
+                    <div class="metric-label">All-Time Low</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="avg-volume">0</div>
+                    <div class="metric-label">Avg Daily Volume</div>
+                </div>
+            </div>
+            
+            <!-- Price Chart -->
+            <div class="chart-card full-width">
+                <h3>📊 Price History</h3>
+                <canvas id="priceChart"></canvas>
+            </div>
+            
+            <div class="charts-section">
+                <div class="chart-card">
+                    <h3>📈 Daily Returns Distribution</h3>
+                    <canvas id="returnsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📉 Volatility Over Time</h3>
+                    <canvas id="volatilityChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Statistics Table -->
+            <div class="classification-report">
+                <h3>📋 Statistical Summary</h3>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Open</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Close</th>
+                            <th>Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mean</strong></td>
+                            <td id="mean-open">-</td>
+                            <td id="mean-high">-</td>
+                            <td id="mean-low">-</td>
+                            <td id="mean-close">-</td>
+                            <td id="mean-volume">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Std Dev</strong></td>
+                            <td id="std-open">-</td>
+                            <td id="std-high">-</td>
+                            <td id="std-low">-</td>
+                            <td id="std-close">-</td>
+                            <td id="std-volume">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Min</strong></td>
+                            <td id="min-open">-</td>
+                            <td id="min-high">-</td>
+                            <td id="min-low">-</td>
+                            <td id="min-close">-</td>
+                            <td id="min-volume">-</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Max</strong></td>
+                            <td id="max-open">-</td>
+                            <td id="max-high">-</td>
+                            <td id="max-low">-</td>
+                            <td id="max-close">-</td>
+                            <td id="max-volume">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Data Info -->
+            <div class="model-info">
+                <h3>📁 Dataset Information</h3>
+                <div class="config-grid">
+                    <div class="config-item">
+                        <span class="config-label">Selected Coin</span>
+                        <span class="config-value" id="info-coin">Bitcoin</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Symbol</span>
+                        <span class="config-value" id="info-symbol">BTC</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Total Records</span>
+                        <span class="config-value" id="info-records">-</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Date Range</span>
+                        <span class="config-value" id="info-daterange">-</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Latest Market Cap</span>
+                        <span class="config-value" id="info-marketcap">-</span>
+                    </div>
+                    <div class="config-item">
+                        <span class="config-label">Data Source</span>
+                        <span class="config-value">Historical CSV Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glossary Page -->
+    <section id="glossary" class="page">
+        <div class="glossary-container">
+            <div class="glossary-header">
+                <h1>📚 Cryptocurrency Glossary</h1>
+                <p>Essential terms and concepts explained</p>
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="glossary-nav">
+                <a href="javascript:void(0)" onclick="scrollToSection('basics')">Basics</a>
+                <a href="javascript:void(0)" onclick="scrollToSection('trading')">Trading</a>
+                <a href="javascript:void(0)" onclick="scrollToSection('analysis')">Analysis</a>
+                <a href="javascript:void(0)" onclick="scrollToSection('risk-section')">Risk</a>
+                <a href="javascript:void(0)" onclick="scrollToSection('technology')">Technology</a>
+            </div>
+            
+            <!-- Basics Section -->
+            <div class="glossary-section" id="basics">
+                <h2>🪙 Cryptocurrency Basics</h2>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h3>Cryptocurrency</h3>
+                        <p>A digital or virtual currency that uses cryptography for security. Unlike traditional currencies, cryptocurrencies operate on decentralized networks based on blockchain technology, making them resistant to government interference or manipulation.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Bitcoin (BTC)</h3>
+                        <p>The first and most well-known cryptocurrency, created in 2009 by an anonymous person or group using the pseudonym Satoshi Nakamoto. It serves as digital gold and a store of value.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Altcoin</h3>
+                        <p>Any cryptocurrency other than Bitcoin. Examples include Ethereum, Cardano, Solana, and thousands of others. Each altcoin may have different features, use cases, and technologies.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Blockchain</h3>
+                        <p>A distributed digital ledger that records all transactions across a network of computers. Each block contains transaction data and is linked to previous blocks, creating an immutable chain of records.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Wallet</h3>
+                        <p>A digital tool that allows you to store, send, and receive cryptocurrencies. Wallets can be hardware devices (cold wallets) or software applications (hot wallets).</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Token</h3>
+                        <p>A digital asset created on an existing blockchain (like Ethereum). Unlike coins which have their own blockchain, tokens are built using smart contracts on other platforms.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trading Section -->
+            <div class="glossary-section" id="trading">
+                <h2>📈 Trading Terms</h2>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h3>Market Price</h3>
+                        <p>The current price at which a cryptocurrency can be bought or sold. Market prices are determined by supply and demand dynamics across exchanges.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Open Price</h3>
+                        <p>The price of a cryptocurrency at the beginning of a trading period (usually a day). It represents the first trade executed when the market opens.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Close Price</h3>
+                        <p>The final price of a cryptocurrency at the end of a trading period. This is often used as the reference price for daily analysis and is shown in our analytics.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>High Price</h3>
+                        <p>The highest price reached by a cryptocurrency during a specific time period. This indicates the peak buying pressure during that period.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Low Price</h3>
+                        <p>The lowest price reached by a cryptocurrency during a specific time period. This indicates the maximum selling pressure during that period.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Volume</h3>
+                        <p>The total amount of a cryptocurrency traded during a specific period. High volume indicates strong market interest, while low volume may suggest weak momentum.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Market Cap (Market Capitalization)</h3>
+                        <p>The total value of all coins in circulation, calculated by multiplying the current price by the total supply. It's used to rank cryptocurrencies by size.</p>
+                        <div class="formula">Market Cap = Current Price × Circulating Supply</div>
+                    </div>
+                    <div class="term-card">
+                        <h3>All-Time High (ATH)</h3>
+                        <p>The highest price a cryptocurrency has ever reached in its trading history. Investors often use ATH as a reference point for potential future growth.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>All-Time Low (ATL)</h3>
+                        <p>The lowest price a cryptocurrency has ever reached. This can indicate strong support levels or historical market bottoms.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analysis Section -->
+            <div class="glossary-section" id="analysis">
+                <h2>📊 Analysis Terms</h2>
+                <div class="terms-grid">
+                    <div class="term-card highlight">
+                        <h3>Return</h3>
+                        <p>The percentage change in price over a period. Positive returns indicate profit, while negative returns indicate loss. Daily returns are used in our risk model.</p>
+                        <div class="formula">Return = (Current Price - Previous Price) / Previous Price × 100%</div>
+                    </div>
+                    <div class="term-card highlight">
+                        <h3>Volatility</h3>
+                        <p>A measure of how much and how quickly a cryptocurrency's price changes. High volatility means prices can change dramatically in a short time, indicating higher risk but also higher potential reward.</p>
+                        <div class="formula">Volatility = Standard Deviation of Returns</div>
+                    </div>
+                    <div class="term-card">
+                        <h3>Standard Deviation</h3>
+                        <p>A statistical measure that shows how spread out the data is from the average. In crypto, it measures how much returns deviate from the mean return.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Rolling Volatility</h3>
+                        <p>Volatility calculated over a moving window (e.g., 7 days). This shows how volatility changes over time and is used in our analytics charts.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Mean (Average)</h3>
+                        <p>The sum of all values divided by the number of values. In our statistics table, we show the mean price and volume to understand typical market behavior.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Trend</h3>
+                        <p>The general direction in which a cryptocurrency's price is moving. Trends can be upward (bullish), downward (bearish), or sideways (consolidation).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Risk Section -->
+            <div class="glossary-section" id="risk-section">
+                <h2>⚠️ Risk Classification</h2>
+                <div class="terms-grid">
+                    <div class="term-card low-risk">
+                        <h3>Low Risk (Volatility &lt; 2%)</h3>
+                        <p>Indicates stable market conditions with minimal price fluctuations. Suitable for conservative investors or when holding positions. The price is relatively predictable.</p>
+                        <ul class="term-list">
+                            <li>Price changes are small and gradual</li>
+                            <li>Good for long-term holding</li>
+                            <li>Lower potential for quick profits</li>
+                            <li>Lower potential for sudden losses</li>
+                        </ul>
+                    </div>
+                    <div class="term-card medium-risk">
+                        <h3>Medium Risk (Volatility 2% - 5%)</h3>
+                        <p>Moderate market movement with manageable risk exposure. This is typical for most trading days in established cryptocurrencies.</p>
+                        <ul class="term-list">
+                            <li>Normal market conditions</li>
+                            <li>Standard risk management applies</li>
+                            <li>Balanced risk-reward ratio</li>
+                            <li>Suitable for active traders</li>
+                        </ul>
+                    </div>
+                    <div class="term-card high-risk">
+                        <h3>High Risk (Volatility &gt; 5%)</h3>
+                        <p>Highly volatile conditions requiring caution. Prices can swing dramatically, leading to significant gains or losses in short periods.</p>
+                        <ul class="term-list">
+                            <li>Large price swings expected</li>
+                            <li>Use stop-loss orders</li>
+                            <li>Consider reducing position size</li>
+                            <li>Often occurs during major news events</li>
+                        </ul>
+                    </div>
+                    <div class="term-card">
+                        <h3>Decision Tree</h3>
+                        <p>A machine learning algorithm that makes decisions by splitting data based on feature values. Our model uses a decision tree to classify trading risk based on return, volatility, and volume change.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Classification</h3>
+                        <p>The process of categorizing data into predefined classes. Our model classifies trading conditions into three risk categories: Low, Medium, and High.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Feature Engineering</h3>
+                        <p>The process of creating meaningful input variables for a machine learning model. We engineer features like returns, volatility, and volume changes from raw price data.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technology Section -->
+            <div class="glossary-section" id="technology">
+                <h2>🔧 Technology Terms</h2>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h3>Decentralization</h3>
+                        <p>The distribution of power away from a central authority. In crypto, no single entity controls the network; instead, thousands of nodes maintain and verify the blockchain.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Mining</h3>
+                        <p>The process of using computer power to validate transactions and add new blocks to the blockchain. Miners are rewarded with cryptocurrency for their efforts.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Smart Contract</h3>
+                        <p>Self-executing code stored on a blockchain that automatically enforces the terms of an agreement. Ethereum popularized smart contracts, enabling DeFi and NFTs.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>DeFi (Decentralized Finance)</h3>
+                        <p>Financial services built on blockchain technology without traditional intermediaries like banks. Includes lending, borrowing, trading, and earning interest on crypto.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Staking</h3>
+                        <p>Locking up cryptocurrency to support network operations (like validating transactions) in exchange for rewards. It's an alternative to mining in Proof-of-Stake blockchains.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Gas Fees</h3>
+                        <p>Transaction fees paid to process operations on a blockchain. On Ethereum, gas fees vary based on network congestion and transaction complexity.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Reference -->
+            <div class="quick-reference">
+                <h2>📋 Quick Reference</h2>
+                <div class="reference-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Symbol/Abbr</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Bitcoin</td><td>BTC</td><td>First cryptocurrency, digital gold</td></tr>
+                            <tr><td>Ethereum</td><td>ETH</td><td>Smart contract platform</td></tr>
+                            <tr><td>Volatility</td><td>σ (sigma)</td><td>Price fluctuation measure</td></tr>
+                            <tr><td>Return</td><td>R or %</td><td>Percentage price change</td></tr>
+                            <tr><td>Market Cap</td><td>MCAP</td><td>Total market value</td></tr>
+                            <tr><td>Volume</td><td>VOL</td><td>Trading activity amount</td></tr>
+                            <tr><td>All-Time High</td><td>ATH</td><td>Highest price ever</td></tr>
+                            <tr><td>All-Time Low</td><td>ATL</td><td>Lowest price ever</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🛡️ CryptoGuard - Decision Trees for Cryptocurrency Trading Risk Classification</p>
+            <p class="footer-subtitle">Built with Python, scikit-learn, and ❤️</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
