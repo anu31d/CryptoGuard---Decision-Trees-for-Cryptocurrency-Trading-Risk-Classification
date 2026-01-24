@@ -1,3 +1,10 @@
+"""
+CryptoGuard - Cryptocurrency Trading Risk Classification
+Author: Anuska Dasgupta
+Created: 2026
+Description: Main entry point for the CLI application
+"""
+
 import sys
 
 from data_loader import load_crypto_data

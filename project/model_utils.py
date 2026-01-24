@@ -1,3 +1,10 @@
+"""
+CryptoGuard - Cryptocurrency Trading Risk Classification
+Author: Anuska Dasgupta
+Created: 2026
+Description: Decision Tree model training and prediction utilities
+"""
+
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report

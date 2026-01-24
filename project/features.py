@@ -1,3 +1,10 @@
+"""
+CryptoGuard - Cryptocurrency Trading Risk Classification
+Author: Anuska Dasgupta
+Created: 2026
+Description: Feature engineering and risk labeling module
+"""
+
 import pandas as pd
 
 

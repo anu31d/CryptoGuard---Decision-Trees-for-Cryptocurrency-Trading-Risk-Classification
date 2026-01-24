@@ -1,3 +1,10 @@
+/**
+ * CryptoGuard - Cryptocurrency Trading Risk Classification
+ * Author: Anuska Dasgupta
+ * Created: 2026
+ * Description: Frontend JavaScript for interactive web interface
+ */
+
 // Page Navigation
 function showPage(pageId) {
     // Hide all pages

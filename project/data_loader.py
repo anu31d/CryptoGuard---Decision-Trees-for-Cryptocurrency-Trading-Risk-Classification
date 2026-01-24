@@ -1,3 +1,10 @@
+"""
+CryptoGuard - Cryptocurrency Trading Risk Classification
+Author: Anuska Dasgupta
+Created: 2026
+Description: Data loading module with yfinance API and CSV fallback
+"""
+
 import os
 
 import pandas as pd
