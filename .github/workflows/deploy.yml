@@ -1,66 +1,50 @@
 name: 🚀 Deploy CryptoGuard Website
 
 on:
-push:
-branches:
-- main
-- master
-pull_request:
-branches:
-- main
-- master
-workflow_dispatch:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
-contents: read
-pages: write
-id-token: write
-
-concurrency:
-group: github-pages
-cancel-in-progress: true
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-build-and-deploy:
-runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-```
-environment:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
 
-steps:
-  - name: 📥 Checkout Repository
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  - name: 📁 Prepare Website Files
-    run: |
-      mkdir -p public
-      mkdir -p public/data
+      - name: Prepare Site
+        run: |
+          mkdir -p public
+          mkdir -p public/data
 
-      # Main website files
-      cp project/index.html public/
-      cp project/styles.css public/
-      cp project/script.js public/
+          cp project/index.html public/
+          cp project/styles.css public/
+          cp project/script.js public/
 
-      # Copy all images from project folder
-      find project -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" \) -exec cp {} public/ \;
+          find project -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.svg" \) -exec cp {} public/ \;
 
-      # Copy CSV datasets
-      cp -r data/* public/data/
+          cp -r data/* public/data/
 
-      # Disable Jekyll processing
-      touch public/.nojekyll
+          touch public/.nojekyll
 
-  - name: ⚙️ Setup GitHub Pages
-    uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-  - name: 📦 Upload Pages Artifact
-    uses: actions/upload-pages-artifact@v3
-    with:
-      path: public
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
 
-  - name: 🚀 Deploy to GitHub Pages
-    id: deployment
-    uses: actions/deploy-pages@v4
-```
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
