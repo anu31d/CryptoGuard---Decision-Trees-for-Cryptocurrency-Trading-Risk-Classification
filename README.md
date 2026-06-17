@@ -1,11 +1,13 @@
 # CryptoGuard - Decision Trees for Cryptocurrency Trading Risk Classification
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://anu31d.github.io/CryptoGuard---Decision-Trees-for-Cryptocurrency-Trading-Risk-Classification/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Author:** Anuska Dasgupta  
 **Created:** 2026
 
 A machine learning application that classifies cryptocurrency trading risk levels using Decision Tree algorithms, helping traders make informed investment decisions.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
