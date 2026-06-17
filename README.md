@@ -2,6 +2,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success?style=for-the-badge)](https://anu31d.github.io/CryptoGuard---Decision-Trees-for-Cryptocurrency-Trading-Risk-Classification/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Live Demo]](https://anu31d.github.io/CryptoGuard---Decision-Trees-for-Cryptocurrency-Trading-Risk-Classification/)
 
 **Author:** Anuska Dasgupta  
 **Created:** 2026
