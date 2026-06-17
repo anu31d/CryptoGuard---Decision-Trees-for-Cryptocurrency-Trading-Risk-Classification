@@ -1,0 +1,66 @@
+name: 🚀 Deploy CryptoGuard Website
+
+on:
+push:
+branches:
+- main
+- master
+pull_request:
+branches:
+- main
+- master
+workflow_dispatch:
+
+permissions:
+contents: read
+pages: write
+id-token: write
+
+concurrency:
+group: github-pages
+cancel-in-progress: true
+
+jobs:
+build-and-deploy:
+runs-on: ubuntu-latest
+
+```
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+
+steps:
+  - name: 📥 Checkout Repository
+    uses: actions/checkout@v4
+
+  - name: 📁 Prepare Website Files
+    run: |
+      mkdir -p public
+      mkdir -p public/data
+
+      # Main website files
+      cp project/index.html public/
+      cp project/styles.css public/
+      cp project/script.js public/
+
+      # Copy all images from project folder
+      find project -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" \) -exec cp {} public/ \;
+
+      # Copy CSV datasets
+      cp -r data/* public/data/
+
+      # Disable Jekyll processing
+      touch public/.nojekyll
+
+  - name: ⚙️ Setup GitHub Pages
+    uses: actions/configure-pages@v5
+
+  - name: 📦 Upload Pages Artifact
+    uses: actions/upload-pages-artifact@v3
+    with:
+      path: public
+
+  - name: 🚀 Deploy to GitHub Pages
+    id: deployment
+    uses: actions/deploy-pages@v4
+```
